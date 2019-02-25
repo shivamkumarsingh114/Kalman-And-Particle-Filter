@@ -3,13 +3,13 @@ from numpy.linalg import inv
 from numpy import random
 import matplotlib.pyplot as plt
 
-x_observations = np.array([20])
-y_observations = np.array([10])
-vx_observations = np.array([2.8])
-vy_observations = np.array([-10])
+x_observations = np.array([0])
+y_observations = np.array([0])
+vx_observations = np.array([4])
+vy_observations = np.array([-4])
 z = np.c_[x_observations,y_observations, vx_observations,vy_observations]
 # Initial Conditions
-a = [1,1]  # Acceleration
+a = [-5,1]  # Acceleration
 t = 0.1  # Difference in time
 
 # Process / Estimation Errors
@@ -25,6 +25,10 @@ error_obs_vx = 6
 error_obs_vy = 4
 
 def prediction2d(x,y,vx,vy, t, a):
+    # if x>=10 or x<=0: #virtual area of 10*10
+    #     vx=-vx
+    # if y>=10 or y<=0:
+    #     vy=-vy
     A = np.array([[1,0,t,0],
                   [0, 1,0,t],
                   [0,0,1,0],[0,0,0,1]])
@@ -34,6 +38,11 @@ def prediction2d(x,y,vx,vy, t, a):
     a=np.array([a,a]).reshape(1,4)
     X=np.array(X).reshape(1,4)
     X_prime = A.dot(X.T)+ (B*a).T
+    if X_prime[0][0]>=10 or X_prime[0][0]<=0: #virtual area of 10*10
+        X_prime[2][0]=-X_prime[2][0]
+    if X_prime[1][0]>=10 or X_prime[1][0]<=0:
+        X_prime[3][0]=-X_prime[3][0]
+    print(X_prime)
     return X_prime
 
 
@@ -60,8 +69,10 @@ predicted_values=[]
 measured_values=[]
 kalman_values=[]
 n = len(z[0])
-iter=25
+iter=50
 for i in range(0,iter):
+    a[0]=np.add(a[0],(1/4))
+    a[1]=np.add(a[1],-(1/4))
     X = prediction2d(X[0][0], X[1][0] ,X[2][0], X[3][0], t, a)
     predicted_values.append(X)
 
@@ -87,6 +98,7 @@ for i in range(0,iter):
     kalman_values.append(X)
     # Update Process Covariance Matrix
     P = (np.identity(len(K)) - K.dot(H)).dot(P)
+
 
 kalman_values=np.array(kalman_values).reshape(iter,4)
 measured_values=np.array(measured_values).reshape(iter,4)
