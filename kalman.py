@@ -60,7 +60,7 @@ predicted_values=[]
 measured_values=[]
 kalman_values=[]
 n = len(z[0])
-iter=15
+iter=25
 for i in range(0,iter):
     X = prediction2d(X[0][0], X[1][0] ,X[2][0], X[3][0], t, a)
     predicted_values.append(X)
@@ -120,12 +120,12 @@ plt.show()
 plt.plot([i for i in range(0,iter)],kalman_values_vx,'r',measured_values_vx,'b',predicted_values_vx,'g')
 plt.xlabel("time")
 plt.ylabel("Velocity in X direction")
-plt.legend(("Predicted","Measured","Kalman"))
+plt.legend(("Kalman","Measured","Predicted"))
 plt.show()
 plt.plot([i for i in range(0,iter)],kalman_values_vy,'r',measured_values_vy,'b',predicted_values_vy,'g')
 plt.xlabel("time")
 plt.ylabel("Velocity in Y direction")
-plt.legend(("Predicted","Measured","Kalman"))
+plt.legend(("Kalman","Measured","Predicted"))
 plt.show()
 
 plt.plot([i for i in range(0,iter)],kalman_pos,'r',measured_pos,'b',predicted_pos,'g')
