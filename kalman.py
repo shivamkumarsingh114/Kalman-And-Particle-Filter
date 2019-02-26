@@ -4,6 +4,22 @@ from numpy import random
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
+"""
+Simple Kalman filter
+
+Initialise the filter
+Args:
+    X: State estimate
+    P: Estimate covariance
+    A: State transition model
+    B: Control matrix
+    M: Control vector
+    Q: Process noise covariance
+    Z: Measurement of the state X
+    H: Observation model
+    R: Observation noise covariance
+"""
+
 x_observations = np.array([0])
 y_observations = np.array([0])
 vx_observations = np.array([4])
