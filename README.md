@@ -2,7 +2,7 @@
 Implementation of Kalman filter and condensation algorithm--A type of particle filter-- in python.
 
 
-kalman.py will track a ball in 10*10*10 3-D space</br>
+kalman.py will track a ball in 10m* 10m* 10m 3-D space</br>
 kalman-gui.py will use mouse as an object and track it's movement</br>
 condensation.py will use condensation algorithm to will use mouse as an object and track it's movement
 
