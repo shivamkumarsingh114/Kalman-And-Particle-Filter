@@ -2,6 +2,7 @@ import numpy as np
 from numpy.linalg import inv
 from numpy import random
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 x_observations = np.array([0])
 y_observations = np.array([0])
@@ -25,10 +26,6 @@ error_obs_vx = 6
 error_obs_vy = 4
 
 def prediction2d(x,y,vx,vy, t, a):
-    # if x>=10 or x<=0: #virtual area of 10*10
-    #     vx=-vx
-    # if y>=10 or y<=0:
-    #     vy=-vy
     A = np.array([[1,0,t,0],
                   [0, 1,0,t],
                   [0,0,1,0],[0,0,0,1]])
@@ -38,10 +35,6 @@ def prediction2d(x,y,vx,vy, t, a):
     a=np.array([a,a]).reshape(1,4)
     X=np.array(X).reshape(1,4)
     X_prime = A.dot(X.T)+ (B*a).T
-    if X_prime[0][0]>=10 or X_prime[0][0]<=0: #virtual area of 10*10
-        X_prime[2][0]=-X_prime[2][0]
-    if X_prime[1][0]>=10 or X_prime[1][0]<=0:
-        X_prime[3][0]=-X_prime[3][0]
     print(X_prime)
     return X_prime
 
@@ -99,6 +92,11 @@ for i in range(0,iter):
     # Update Process Covariance Matrix
     P = (np.identity(len(K)) - K.dot(H)).dot(P)
 
+    if X[0][0]>=10 or X[0][0]<=0: #virtual area of 10*10
+        X[2][0]=-X[2][0]
+    if X[1][0]>=10 or X[1][0]<=0:
+        X[3][0]=-X[3][0]
+
 
 kalman_values=np.array(kalman_values).reshape(iter,4)
 measured_values=np.array(measured_values).reshape(iter,4)
@@ -144,4 +142,13 @@ plt.plot([i for i in range(0,iter)],kalman_pos,'r',measured_pos,'b',predicted_po
 plt.xlabel("time")
 plt.ylabel("Position")
 plt.legend(("Kalman","Measured","Predicted"))
+plt.show()
+
+fig = plt.figure(figsize=(16,9))
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(kalman_values_x, kalman_values_y,0, c='gray')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+plt.title('Ball Trajectory observed from Computer Vision System (with Noise)')
 plt.show()
