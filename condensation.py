@@ -139,8 +139,8 @@ class MouseGUI():
         self.initialise_defaults()
 
         # Windows Init
-        cv2.namedWindow('Mouse Particle')
-        cv2.setMouseCallback('Mouse Particle', self.on_mouse)
+        cv2.namedWindow('Particle Filter')
+        cv2.setMouseCallback('Particle Filter', self.on_mouse)
 
         img = np.zeros((650, 650 ,3), np.uint8)*255
 
@@ -197,7 +197,7 @@ class MouseGUI():
 
             self.counter += 1
 
-            cv2.imshow('Mouse Particle', img)
+            cv2.imshow('Particle Filter', img)
 
             key = cv2.waitKey(1000)
 
