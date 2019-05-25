@@ -33,7 +33,6 @@ class Condensation():
     # Name: cvConDensInitSampleSet
     # Initializing for the Condensation algorithm
     # Parameters:
-    #   conDens     - pointer to CvConDensation structure
     #   lowerBound  - vector of lower bounds used to random update
     #                   of sample set
     #   upperBound  - vector of upper bounds used to random update
@@ -59,7 +58,6 @@ class Condensation():
 
     # Name:    cvConDensUpdateByTime
     # Performing Time Update routine for ConDensation algorithm
-    # Parameters:
     def cvConDensUpdateByTime(self):
         valSum  = 0
         #Sets Temp To Zero
@@ -105,9 +103,11 @@ class Condensation():
 
             self.flSamples[i] = np.add(self.flSamples[i], RandomSample)
 
+#########################################################
 
+
+#GUI and OpenCV Part starts from here
 keep_processing = True;
-
 selection_in_progress = False; # support interactive region selection
 fullscreen = False; # run in fullscreen mode
 
@@ -330,7 +330,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
                 # observation and sample hypothesis)
 
                 # this could/should be updated to a relevant motion model for
-                # the scenario in use; see also Condensation.py object code
+                # the scenario in use.
 
                 tracker.flConfidence[hypothesis] = 1.0/(np.sqrt(np.power(diffX,2) + \
                                                     np.power(diffY,2)))
