@@ -5,6 +5,8 @@ Implementation of Kalman filter and condensation algorithm--A type of particle f
 kalman.py will track a ball in 10m* 10m* 10m 3-D space</br>
 kalman-gui.py will use mouse as an object and track it's movement</br>
 condensation.py will use condensation algorithm to will use mouse as an object and track it's movement
+condensation_live.py will use condensation algorithm, you can either use live camera(if you don't give any CLI argument) or you can give a video as input.
+
 
 <b>Installation Guide</b>
 1. Clone the repo<br>
